@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shruti Basu — Marketing Strategist</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fffbf5;
+    --white: #ffffff;
+    --ink: #0f0f0f;
+    --coral: #ff4d2e;
+    --lime: #b8f000;
+    --sky: #3a86ff;
+    --peach: #ffb347;
+    --mint: #00c2a0;
+    --lavender: #c084fc;
+    --muted: #555;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  .cursor {
+    width: 14px; height: 14px;
+    background: var(--coral); border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border: 2px solid var(--coral); border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease-out;
+    mix-blend-mode: multiply;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: var(--bg);
+    border-bottom: 2px solid var(--ink);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; }
+  .nav-logo span { color: var(--coral); font-style: italic; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--ink); text-decoration: none;
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+    position: relative; padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--coral); transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta { background: var(--coral) !important; color: #fff !important; padding: 0.5rem 1.4rem; }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; padding: 8rem 3rem 4rem;
+    display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center;
+    border-bottom: 2px solid var(--ink); position: relative; overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif; font-size: 22vw; font-weight: 600;
+    color: rgba(255,77,46,0.05); white-space: nowrap; pointer-events: none;
+    letter-spacing: -0.05em; user-select: none;
+  }
+  .hero-left { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--lime); color: var(--ink); padding: 0.4rem 1rem;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 2rem; border: 2px solid var(--ink);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:0.3;} }
+  h1 {
+    font-family: 'Fraunces', serif; font-size: clamp(3.5rem, 7vw, 7rem);
+    font-weight: 600; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 2rem;
+  }
+  h1 .outline { -webkit-text-stroke: 2px var(--ink); color: transparent; }
+  h1 .coral { color: var(--coral); font-style: italic; }
+  .hero-summary {
+    font-size: 1rem; line-height: 1.8; color: var(--muted);
+    max-width: 520px; margin-bottom: 2.5rem;
+    font-family: 'Fraunces', serif; font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.85rem 2rem; font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; border: 2px solid var(--ink); transition: all 0.2s; cursor: none;
+  }
+  .btn-primary { background: var(--coral); color: #fff; border-color: var(--coral); }
+  .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn-outline { background: transparent; color: var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: #fff; transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--coral); }
+  .hero-right { display: flex; flex-direction: column; gap: 3px; position: relative; z-index: 2; min-width: 200px; }
+  .hero-stat { border: 2px solid var(--ink); padding: 1.5rem 1.8rem; text-align: center; }
+  .hero-stat:nth-child(1) { background: var(--coral); color: #fff; }
+  .hero-stat:nth-child(2) { background: var(--lime); color: var(--ink); }
+  .hero-stat:nth-child(3) { background: var(--sky); color: #fff; }
+  .hero-stat:nth-child(4) { background: var(--mint); color: #fff; }
+  .stat-big { font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 600; line-height: 1; display: block; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* TICKER */
+  .ticker { background: var(--ink); color: var(--lime); padding: 0.9rem 0; overflow: hidden; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .ticker-inner { display: flex; gap: 3rem; white-space: nowrap; animation: ticker 25s linear infinite; }
+  .ticker-inner span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+  .ticker-inner .sep { color: var(--coral); }
+  @keyframes ticker { from{transform:translateX(0);}to{transform:translateX(-50%);} }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--coral); margin-bottom: 1.5rem;
+  }
+  .section-label::before { content: ''; display: block; width: 30px; height: 2px; background: var(--coral); }
+  h2 {
+    font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 3rem;
+  }
+  h2 em { font-style: italic; color: var(--coral); }
+
+  /* EXPERTISE */
+  #expertise { background: var(--white); border-bottom: 2px solid var(--ink); }
+  .expertise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .exp-box {
+    border: 2px solid var(--ink); padding: 2rem 1.5rem; background: var(--bg);
+    transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .exp-box:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--ink); }
+  .exp-box:nth-child(1):hover { background: var(--coral); color: #fff; }
+  .exp-box:nth-child(2):hover { background: var(--lime); }
+  .exp-box:nth-child(3):hover { background: var(--sky); color: #fff; }
+  .exp-box:nth-child(4):hover { background: var(--mint); color: #fff; }
+  .exp-box:nth-child(5):hover { background: var(--peach); }
+  .exp-box:nth-child(6):hover { background: var(--lavender); color: #fff; }
+  .exp-box:nth-child(7):hover { background: var(--coral); color: #fff; }
+  .exp-box:nth-child(8):hover { background: var(--lime); }
+  .exp-box-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .exp-box-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .exp-box-list { list-style: none; }
+  .exp-box-list li { font-size: 0.78rem; color: var(--muted); padding: 0.2rem 0; font-family: 'Fraunces', serif; }
+  .exp-box:hover .exp-box-list li { color: inherit; opacity: 0.85; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); border-bottom: 2px solid var(--ink); }
+  .exp-cards { display: flex; flex-direction: column; gap: 4px; }
+  .work-card {
+    border: 2px solid var(--ink); background: var(--white);
+    display: grid; grid-template-columns: 280px 1fr; overflow: hidden; transition: all 0.2s;
+  }
+  .work-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--ink); }
+  .work-card-meta {
+    padding: 2.5rem 2rem; border-right: 2px solid var(--ink);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .work-card:nth-child(1) .work-card-meta { background: var(--coral); color: #fff; }
+  .work-card:nth-child(2) .work-card-meta { background: var(--lime); color: var(--ink); }
+  .work-card:nth-child(3) .work-card-meta { background: var(--sky); color: #fff; }
+  .work-card:nth-child(4) .work-card-meta { background: var(--mint); color: #fff; }
+  .work-card:nth-child(5) .work-card-meta { background: var(--peach); color: var(--ink); }
+  .work-company { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.4rem; }
+  .work-location { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; margin-bottom: 0.8rem; }
+  .work-date { font-size: 0.78rem; font-weight: 700; opacity: 0.85; }
+  .work-badge {
+    display: inline-block; margin-top: 1.2rem;
+    background: rgba(255,255,255,0.25); padding: 0.25rem 0.7rem;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  .work-card:nth-child(2) .work-badge,
+  .work-card:nth-child(5) .work-badge { background: rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.2); }
+  .work-card-body { padding: 2.5rem; }
+  .work-role { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.6rem; }
+  .work-metrics { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.2rem; }
+  .metric { background: var(--lime); color: var(--ink); border: 2px solid var(--ink); padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 700; }
+  .work-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .work-bullets li {
+    font-size: 0.85rem; color: var(--muted); padding-left: 1.2rem; position: relative;
+    line-height: 1.6; font-family: 'Fraunces', serif;
+  }
+  .work-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--coral); font-size: 0.75rem; top: 0.15rem; }
+  .work-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag { background: var(--ink); color: #fff; padding: 0.2rem 0.7rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* DELIVERABLES */
+  #deliverables { background: var(--white); border-bottom: 2px solid var(--ink); }
+  .deliverables-header-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
+  }
+  .deliverables-note {
+    background: var(--lime); border: 2px solid var(--ink);
+    padding: 0.8rem 1.5rem; font-size: 0.8rem; font-weight: 700; max-width: 300px; line-height: 1.5;
+  }
+  .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .deliverable-card {
+    border: 2px solid var(--ink); background: var(--bg); overflow: hidden; transition: all 0.2s;
+  }
+  .deliverable-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--ink); }
+  .deliverable-top {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    border-bottom: 2px solid var(--ink); font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .deliverable-card:nth-child(1) .deliverable-top { background: var(--coral); }
+  .deliverable-card:nth-child(2) .deliverable-top { background: var(--sky); }
+  .deliverable-card:nth-child(3) .deliverable-top { background: var(--lime); }
+  .deliverable-card:nth-child(4) .deliverable-top { background: var(--mint); }
+  .deliverable-card:nth-child(5) .deliverable-top { background: var(--peach); }
+  .deliverable-card:nth-child(6) .deliverable-top { background: var(--lavender); }
+  .placeholder-text {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); position: absolute; bottom: 0.8rem; right: 0.8rem;
+  }
+  .deliverable-card:nth-child(3) .placeholder-text,
+  .deliverable-card:nth-child(5) .placeholder-text { color: rgba(0,0,0,0.35); }
+  .deliverable-body { padding: 1.5rem; }
+  .deliverable-org { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.4rem; }
+  .deliverable-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .deliverable-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; font-family: 'Fraunces', serif; }
+
+  /* VOLUNTEER */
+  #volunteer { background: var(--bg); border-bottom: 2px solid var(--ink); }
+  .vol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .vol-card {
+    border: 2px solid var(--ink); background: var(--white); padding: 2rem;
+    transition: all 0.2s; display: flex; gap: 1.5rem; align-items: flex-start;
+  }
+  .vol-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--ink); }
+  .vol-icon {
+    width: 48px; height: 48px; border: 2px solid var(--ink);
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+  }
+  .vol-card:nth-child(1) .vol-icon { background: var(--coral); }
+  .vol-card:nth-child(2) .vol-icon { background: var(--lime); }
+  .vol-card:nth-child(3) .vol-icon { background: var(--sky); }
+  .vol-card:nth-child(4) .vol-icon { background: var(--mint); }
+  .vol-org { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.3rem; }
+  .vol-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .vol-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; font-family: 'Fraunces', serif; }
+
+  /* TOOLS */
+  #tools { background: var(--ink); color: #fff; border-bottom: 2px solid var(--ink); }
+  #tools .section-label { color: var(--lime); }
+  #tools .section-label::before { background: var(--lime); }
+  #tools h2 em { color: var(--lime); }
+  .tools-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .tool-group { background: #1a1a1a; padding: 1.8rem 1.5rem; border: 1px solid #333; }
+  .tool-group-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); margin-bottom: 1rem; }
+  .tool-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .tool-item {
+    font-size: 0.82rem; color: #ccc; padding: 0.4rem 0.8rem; background: #222;
+    border-left: 3px solid transparent; transition: all 0.2s; font-family: 'Fraunces', serif;
+  }
+  .tool-item:hover { border-left-color: var(--coral); color: #fff; padding-left: 1.2rem; }
+
+  /* EDUCATION */
+  #education { background: var(--white); border-bottom: 2px solid var(--ink); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .edu-card { border: 2px solid var(--ink); padding: 2.5rem; transition: all 0.2s; }
+  .edu-card:nth-child(1) { background: var(--coral); color: #fff; }
+  .edu-card:nth-child(2) { background: var(--bg); }
+  .edu-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--ink); }
+  .edu-degree { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .edu-school { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; opacity: 0.85; margin-bottom: 0.3rem; }
+  .edu-detail { font-size: 0.78rem; opacity: 0.7; font-family: 'Fraunces', serif; }
+
+  /* CONTACT */
+  #contact { background: var(--ink); color: #fff; }
+  #contact .section-label { color: var(--lime); }
+  #contact .section-label::before { background: var(--lime); }
+  #contact h2 { color: #fff; }
+  #contact h2 em { color: var(--lime); }
+  #contact p.sub { color: #999; font-family: 'Fraunces', serif; line-height: 1.8; margin-top: -1rem; margin-bottom: 3rem; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .contact-item {
+    border: 2px solid #333; padding: 1.8rem;
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: #fff; transition: all 0.2s; background: #1a1a1a;
+  }
+  .contact-item:hover { background: var(--coral); border-color: var(--coral); transform: translate(-3px,-3px); box-shadow: 5px 5px 0 var(--lime); }
+  .contact-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .contact-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 0.2rem; }
+  .contact-item:hover .contact-label { color: rgba(255,255,255,0.7); }
+  .contact-value { font-size: 0.9rem; font-weight: 700; }
+
+  footer {
+    background: var(--lime); border-top: 2px solid var(--ink);
+    padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: 0.78rem; font-weight: 700; color: var(--ink); }
+  .footer-brand { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); font-style: italic; }
+
+  .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp 0.6s forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { opacity: 0; animation: fadeUp 0.6s forwards; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+  .hero-right { opacity: 0; animation: fadeUp 0.7s 0.4s forwards; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+    .hero-right { flex-direction: row; flex-wrap: wrap; }
+    .hero-stat { flex: 1; min-width: 120px; }
+    section { padding: 4rem 1.5rem; }
+    .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-card { grid-template-columns: 1fr; }
+    .work-card-meta { border-right: none; border-bottom: 2px solid var(--ink); }
+    .deliverables-grid { grid-template-columns: repeat(2, 1fr); }
+    .vol-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(3, 1fr); }
+    .edu-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+  @media (max-width: 640px) {
+    .expertise-grid, .deliverables-grid, .tools-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">Shruti <span>Basu</span></div>
+  <div class="nav-links">
+    <a href="#expertise">Expertise</a>
+    <a href="#experience">Experience</a>
+    <a href="#deliverables">Work</a>
+    <a href="#volunteer">Volunteer</a>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg-text">SB</div>
+  <div class="hero-left">
+    <div class="hero-badge"><span class="dot"></span> Open to Opportunities · Victoria, BC</div>
+    <h1>
+      Data<br>
+      <span class="outline">Driven.</span><br>
+      <span class="coral">Story Led.</span>
+    </h1>
+    <p class="hero-summary">
+      Growth-focused marketing professional with 5+ years driving user acquisition, engagement, and retention through lifecycle marketing, paid campaigns, CRM strategy, and compelling content — across Canada, Mexico, Finland, Australia, and Europe.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn btn-primary">View Experience ↓</a>
+      <a href="mailto:shruti.basu2708@gmail.com" class="btn btn-outline">Get In Touch →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat"><span class="stat-big">5+</span><span class="stat-label">Years Experience</span></div>
+    <div class="hero-stat"><span class="stat-big">40%</span><span class="stat-label">CPA Reduction</span></div>
+    <div class="hero-stat"><span class="stat-big">4</span><span class="stat-label">Countries Expanded</span></div>
+    <div class="hero-stat"><span class="stat-big">30%</span><span class="stat-label">Lead Conversion ↑</span></div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>Lifecycle Marketing</span><span class="sep">✦</span>
+    <span>CRM Automation</span><span class="sep">✦</span>
+    <span>Paid Acquisition</span><span class="sep">✦</span>
+    <span>SEO Strategy</span><span class="sep">✦</span>
+    <span>A/B Testing</span><span class="sep">✦</span>
+    <span>Content Strategy</span><span class="sep">✦</span>
+    <span>Customer Journey Mapping</span><span class="sep">✦</span>
+    <span>Analytics & Reporting</span><span class="sep">✦</span>
+    <span>Email Marketing</span><span class="sep">✦</span>
+    <span>HubSpot · GA4 · Meta Ads</span><span class="sep">✦</span>
+    <span>Lifecycle Marketing</span><span class="sep">✦</span>
+    <span>CRM Automation</span><span class="sep">✦</span>
+    <span>Paid Acquisition</span><span class="sep">✦</span>
+    <span>SEO Strategy</span><span class="sep">✦</span>
+    <span>A/B Testing</span><span class="sep">✦</span>
+    <span>Content Strategy</span><span class="sep">✦</span>
+    <span>Customer Journey Mapping</span><span class="sep">✦</span>
+    <span>Analytics & Reporting</span><span class="sep">✦</span>
+    <span>Email Marketing</span><span class="sep">✦</span>
+    <span>HubSpot · GA4 · Meta Ads</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<section id="expertise">
+  <div class="section-label">Areas of Expertise</div>
+  <h2>What I <em>Do Best</em></h2>
+  <div class="expertise-grid">
+    <div class="exp-box">
+      <div class="exp-box-icon">📊</div>
+      <div class="exp-box-title">Lifecycle Marketing</div>
+      <ul class="exp-box-list">
+        <li>Customer journey mapping</li>
+        <li>Drip & nurture campaigns</li>
+        <li>Onboarding workflows</li>
+        <li>Retention strategies</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">🤖</div>
+      <div class="exp-box-title">CRM & Automation</div>
+      <ul class="exp-box-list">
+        <li>HubSpot, Zoho, Close</li>
+        <li>Segmentation & targeting</li>
+        <li>Automated workflows</li>
+        <li>Lead scoring & nurturing</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">🎯</div>
+      <div class="exp-box-title">Paid Acquisition</div>
+      <ul class="exp-box-list">
+        <li>Google & Meta Ads</li>
+        <li>Search & display campaigns</li>
+        <li>A/B testing & optimisation</li>
+        <li>CPA & ROAS improvement</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">📈</div>
+      <div class="exp-box-title">Analytics & Reporting</div>
+      <ul class="exp-box-list">
+        <li>GA4 & dashboard building</li>
+        <li>Funnel & drop-off analysis</li>
+        <li>Survey design & insights</li>
+        <li>Conversion optimisation</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">✍️</div>
+      <div class="exp-box-title">Content & Storytelling</div>
+      <ul class="exp-box-list">
+        <li>Multi-channel content strategy</li>
+        <li>Copywriting & blogging</li>
+        <li>Podcast production</li>
+        <li>Video & multimedia</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">🔍</div>
+      <div class="exp-box-title">SEO & Organic Growth</div>
+      <ul class="exp-box-list">
+        <li>On-page & technical SEO</li>
+        <li>SEO content architecture</li>
+        <li>Site audits & UX improvements</li>
+        <li>Bilingual content (EN/Bengali)</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">🌍</div>
+      <div class="exp-box-title">Global Campaigns</div>
+      <ul class="exp-box-list">
+        <li>Multi-market expansion</li>
+        <li>Cross-cultural messaging</li>
+        <li>Stakeholder collaboration</li>
+        <li>Municipal partnerships</li>
+      </ul>
+    </div>
+    <div class="exp-box">
+      <div class="exp-box-icon">🎪</div>
+      <div class="exp-box-title">Events & Brand</div>
+      <ul class="exp-box-list">
+        <li>Event design & execution</li>
+        <li>Print & promo materials</li>
+        <li>Rebranding campaigns</li>
+        <li>Brand communication</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">Professional Experience</div>
+  <h2>Where I've <em>Made an Impact</em></h2>
+  <div class="exp-cards">
+
+    <div class="work-card">
+      <div class="work-card-meta">
+        <div>
+          <div class="work-company">City Green Solutions</div>
+          <div class="work-location">Victoria, BC</div>
+          <div class="work-date">Jul 2023 – Dec 2025</div>
+        </div>
+        <div class="work-badge">Full-Time</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-role">Marketing & Customer Experience Specialist</div>
+        <div class="work-metrics">
+          <span class="metric">↑ 25–35% Program Engagement</span>
+          <span class="metric">↓ 20% Drop-off Rate</span>
+          <span class="metric">↑ 15% Email Engagement</span>
+        </div>
+        <ul class="work-bullets">
+          <li>Planned and executed multi-channel lifecycle campaigns across email, social, and web — contributing to a 25–35% increase in program engagement and participation.</li>
+          <li>Developed and optimised customer journey touchpoints reducing user drop-offs by 20% across Instagram, LinkedIn, and YouTube.</li>
+          <li>Managed CRM-driven communications via HubSpot, segmenting audiences for targeted messaging based on user behaviour and program eligibility.</li>
+          <li>Designed and conducted market research and surveys for City of Richmond, District of Saanich, Comox Valley Regional District, Regional District of Nanaimo, and Capital Regional Districts.</li>
+          <li>Designed, branded, and executed the Retrofit Community Festival — an annual event connecting local homeowners with certified contractors and educating them on provincial and federal housing rebates.</li>
+          <li>Built GA4 dashboards and ran A/B tests to refine messaging, boosting engagement rates by 15%.</li>
+          <li>Led survey design and user journey analysis, translating findings into lifecycle improvements for municipal stakeholders.</li>
+        </ul>
+        <div class="work-tags">
+          <span class="tag">HubSpot</span><span class="tag">GA4</span><span class="tag">Email Marketing</span>
+          <span class="tag">Meta Ads</span><span class="tag">Google Ads</span><span class="tag">A/B Testing</span>
+          <span class="tag">Event Marketing</span><span class="tag">Market Research</span><span class="tag">Drip Campaigns</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-meta">
+        <div>
+          <div class="work-company">Her Helping Habit</div>
+          <div class="work-location">Vancouver, BC</div>
+          <div class="work-date">Feb 2023 – Jul 2023</div>
+        </div>
+        <div class="work-badge">Marketing Lead</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-role">Marketing Lead</div>
+        <div class="work-metrics">
+          <span class="metric">↑ 30% Lead Conversions</span>
+          <span class="metric">↓ 40% CPA</span>
+          <span class="metric">↑ 25% Organic Acquisition</span>
+          <span class="metric">4 Countries Expanded</span>
+        </div>
+        <ul class="work-bullets">
+          <li>Directed integrated lifecycle campaigns — content, email, and social — driving a 30% increase in lead conversions.</li>
+          <li>Expanded the program internationally from Canada to Mexico, Finland, Australia, and parts of Europe.</li>
+          <li>Audited all paid acquisition channels, optimising CPA by 40% through A/B testing, ad refinement, and audience segmentation across Search, Display, and Meta Ads.</li>
+          <li>Relaunched the <em>Fertility Frontier</em> podcast — creating 2 episodes/month, posting 1/month, and securing a full year's content pipeline.</li>
+          <li>Led a team of 3 managing content across web, social, and podcast platforms, ensuring brand alignment.</li>
+          <li>Grew organic acquisition by 25% via SEO-optimised web architecture and content strategies.</li>
+          <li>Oversaw live digital engagement sessions and Q&A content formats to foster community connection.</li>
+        </ul>
+        <div class="work-tags">
+          <span class="tag">Mailchimp</span><span class="tag">Meta Ads</span><span class="tag">SEO</span>
+          <span class="tag">Podcast Strategy</span><span class="tag">International Expansion</span><span class="tag">Lead Nurturing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-meta">
+        <div>
+          <div class="work-company">VINN Automotive</div>
+          <div class="work-location">Victoria, BC</div>
+          <div class="work-date">Aug 2022 – Jan 2023</div>
+        </div>
+        <div class="work-badge">Specialist</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-role">Marketing Specialist</div>
+        <div class="work-metrics">
+          <span class="metric">↑ 30% Retention & Conversion</span>
+        </div>
+        <ul class="work-bullets">
+          <li>Managed end-to-end lifecycle and performance marketing integrating paid, organic, and CRM channels.</li>
+          <li>Integrated and optimised Close CRM, GA4, Tag Manager, and Hotjar to improve funnel visibility.</li>
+          <li>Analysed drop-off data and implemented email marketing improvements boosting retention and conversion by 30%.</li>
+          <li>Ran paid acquisition campaigns with ongoing A/B testing to improve marketing ROI.</li>
+        </ul>
+        <div class="work-tags">
+          <span class="tag">Close CRM</span><span class="tag">GA4</span><span class="tag">Hotjar</span>
+          <span class="tag">Paid Ads</span><span class="tag">A/B Testing</span><span class="tag">Tag Manager</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-meta">
+        <div>
+          <div class="work-company">Regal Immigration Services</div>
+          <div class="work-location">Surrey, BC</div>
+          <div class="work-date">Dec 2021 – Mar 2022</div>
+        </div>
+        <div class="work-badge">Coordinator</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-role">Marketing Coordinator</div>
+        <ul class="work-bullets">
+          <li>Developed and executed digital communication strategies enhancing brand awareness and client acquisition.</li>
+          <li>Conducted SEO audits identifying UX barriers and recommended site performance improvements.</li>
+          <li>Produced social content, digital materials, and leadership reports supporting cross-functional collaboration.</li>
+        </ul>
+        <div class="work-tags">
+          <span class="tag">SEO</span><span class="tag">Content Strategy</span><span class="tag">Digital Comms</span><span class="tag">Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-meta">
+        <div>
+          <div class="work-company">Consultants Factory</div>
+          <div class="work-location">Bangalore, India</div>
+          <div class="work-date">Jan 2020 – Dec 2020</div>
+        </div>
+        <div class="work-badge">Dual Role</div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-role">Business Manager → Marketing Intern</div>
+        <ul class="work-bullets">
+          <li>Led product marketing and communication initiatives — CRM integration, campaign management, and stakeholder reporting — for a cybersecurity IT training company.</li>
+          <li>Created digital content across video, stills, and carousels to enhance brand storytelling.</li>
+          <li>Ran outreach and lead generation through targeted messaging, and advised executives on KPI-driven strategy adjustments.</li>
+        </ul>
+        <div class="work-tags">
+          <span class="tag">CRM</span><span class="tag">Graphic Design</span><span class="tag">Google Ads</span>
+          <span class="tag">LinkedIn Ads</span><span class="tag">Copywriting</span><span class="tag">Blog Writing</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="deliverables-header-row">
+    <div>
+      <div class="section-label">Portfolio of Work</div>
+      <h2>Selected <em>Deliverables</em></h2>
+    </div>
+    <div class="deliverables-note">📎 Add your campaign screenshots, ad creative & assets here!</div>
+  </div>
+  <div class="deliverables-grid">
+    <div class="deliverable-card">
+      <div class="deliverable-top">🌱<span class="placeholder-text">Add Image</span></div>
+      <div class="deliverable-body">
+        <div class="deliverable-org">City Green Solutions</div>
+        <div class="deliverable-title">Retrofit Community Festival</div>
+        <div class="deliverable-desc">Designed, branded, and executed an annual local event educating homeowners on provincial & federal housing rebates and connecting them with certified contractors.</div>
+      </div>
+    </div>
+    <div class="deliverable-card">
+      <div class="deliverable-top">📋<span class="placeholder-text">Add Image</span></div>
+      <div class="deliverable-body">
+        <div class="deliverable-org">City Green Solutions</div>
+        <div class="deliverable-title">Municipal Market Research</div>
+        <div class="deliverable-desc">Designed and led surveys for City of Richmond, District of Saanich, Comox Valley, Regional District of Nanaimo, and Capital Regional Districts.</div>
+      </div>
+    </div>
+    <div class="deliverable-card">
+      <div class="deliverable-top">🎙️<span class="placeholder-text">Add Image</span></div>
+      <div class="deliverable-body">
+        <div class="deliverable-org">Her Helping Habit</div>
+        <div class="deliverable-title">Fertility Frontier Podcast Relaunch</div>
+        <div class="deliverable-desc">Relaunched podcast channel producing 2 episodes/month, posting 1/month, and building a full year's content pipeline to grow the audience sustainably.</div>
+      </div>
+    </div>
+    <div class="deliverable-card">
+      <div class="deliverable-top">🌍<span class="placeholder-text">Add Image</span></div>
+      <div class="deliverable-body">
+        <div class="deliverable-org">Her Helping Habit</div>
+        <div class="deliverable-title">International Program Expansion</div>
+        <div class="deliverable-desc">Expanded from Canada to Mexico, Finland, Australia, and parts of Europe through multi-market campaign strategy and cross-cultural audience targeting.</div>
+      </div>
+    </div>
+    <div class="deliverable-card">
+      <div class="deliverable-top">🚗<span class="placeholder-text">Add Image</span></div>
+      <div class="deliverable-body">
+        <div class="deliverable-org">VINN Automotive</div>
+        <div class="deliverable-title">Social Media Rebrand</div>
+        <div class="deliverable-desc">Redesigned VINN's entire social presence — rebranding, UGC strategy, educational video content, and cross-platform promotion to drive organic engagement.</div>
+      </div>
+    </div>
+    <div class="deliverable-card">
+      <div class="deliverable-top">➕<span class="placeholder-text">Your Work Here</span></div>
+      <div class="deliverable-body">
+        <div class="deliverable-org">Add Your Own</div>
+        <div class="deliverable-title">More Coming Soon</div>
+        <div class="deliverable-desc">Upload campaign screenshots, ad creative, dashboards, or any other deliverables to showcase here.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="volunteer">
+  <div class="section-label">Giving Back</div>
+  <h2>Volunteer <em>Experience</em></h2>
+  <div class="vol-grid">
+    <div class="vol-card">
+      <div class="vol-icon">🏃</div>
+      <div>
+        <div class="vol-org">Pursuit Physiotherapy</div>
+        <div class="vol-title">Digital Campaign Optimisation</div>
+        <div class="vol-desc">Supported digital campaign efforts contributing to the clinic's highest-revenue week through targeted Google Ads and social communication workflows.</div>
+      </div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-icon">🤝</div>
+      <div>
+        <div class="vol-org">Drishtanto – Manusher Jonyo</div>
+        <div class="vol-title">Community Health Outreach</div>
+        <div class="vol-desc">Delivered community health outreach and contributed to public-facing communications for this humanitarian organisation.</div>
+      </div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-icon">🎉</div>
+      <div>
+        <div class="vol-org">Silver Threads</div>
+        <div class="vol-title">65th Anniversary Marketing</div>
+        <div class="vol-desc">Created digital and traditional marketing materials enhancing awareness and engagement for their landmark 65th anniversary initiatives.</div>
+      </div>
+    </div>
+    <div class="vol-card">
+      <div class="vol-icon">🎬</div>
+      <div>
+        <div class="vol-org">Anthropological Survey of India & As Bongs Travel</div>
+        <div class="vol-title">Research, Documentary & Bengali Content</div>
+        <div class="vol-desc">Assisted with video editing, proofreading, and content prep for documentary research. Also wrote Bengali SEO travel blogs and managed a YouTube talkshow channel.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-label">Technical Proficiencies</div>
+  <h2>Tools &amp; <em>Tech Stack</em></h2>
+  <div class="tools-grid">
+    <div class="tool-group">
+      <div class="tool-group-title">CRM & Automation</div>
+      <div class="tool-list">
+        <div class="tool-item">HubSpot</div>
+        <div class="tool-item">Zoho</div>
+        <div class="tool-item">Close CRM</div>
+        <div class="tool-item">Agile</div>
+        <div class="tool-item">Monday.com</div>
+      </div>
+    </div>
+    <div class="tool-group">
+      <div class="tool-group-title">Analytics</div>
+      <div class="tool-list">
+        <div class="tool-item">GA4</div>
+        <div class="tool-item">Google Tag Manager</div>
+        <div class="tool-item">Hotjar</div>
+        <div class="tool-item">CRM Analytics</div>
+        <div class="tool-item">Dashboard Design</div>
+      </div>
+    </div>
+    <div class="tool-group">
+      <div class="tool-group-title">Marketing Tools</div>
+      <div class="tool-list">
+        <div class="tool-item">Google Ads</div>
+        <div class="tool-item">Meta Ads</div>
+        <div class="tool-item">Mailchimp</div>
+        <div class="tool-item">SendGrid</div>
+        <div class="tool-item">LinkedIn Ads</div>
+      </div>
+    </div>
+    <div class="tool-group">
+      <div class="tool-group-title">Web & CMS</div>
+      <div class="tool-list">
+        <div class="tool-item">WordPress</div>
+        <div class="tool-item">Webflow</div>
+        <div class="tool-item">Squarespace</div>
+      </div>
+    </div>
+    <div class="tool-group">
+      <div class="tool-group-title">Creative</div>
+      <div class="tool-list">
+        <div class="tool-item">Adobe Creative Suite</div>
+        <div class="tool-item">Figma</div>
+        <div class="tool-item">Miro</div>
+        <div class="tool-item">Canva</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-label">Education</div>
+  <h2>Academic <em>Background</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">Post-Degree Diploma in Marketing</div>
+      <div class="edu-school">Douglas College · New Westminster, BC</div>
+      <div class="edu-detail">Specialisation in digital marketing, analytics, and strategic communications</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor of Science in Paramedical</div>
+      <div class="edu-school">West Bengal University of Health Sciences · India</div>
+      <div class="edu-detail">Foundation in research methodology, human behaviour, and health communications</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Let's Talk</div>
+  <h2>Ready to Be Your<br><em>Next Change Maker</em></h2>
+  <p class="sub">I'm looking for my next opportunity to drive growth, build audiences, and make things happen. Let's connect.</p>
+  <div class="contact-grid">
+    <a href="mailto:shruti.basu2708@gmail.com" class="contact-item">
+      <span class="contact-icon">✉️</span>
+      <div><div class="contact-label">Email</div><div class="contact-value">shruti.basu2708@gmail.com</div></div>
+    </a>
+    <a href="tel:+12368632761" class="contact-item">
+      <span class="contact-icon">📞</span>
+      <div><div class="contact-label">Phone</div><div class="contact-value">+1 (236) 863-2761</div></div>
+    </a>
+    <a href="https://linkedin.com" target="_blank" class="contact-item">
+      <span class="contact-icon">💼</span>
+      <div><div class="contact-label">LinkedIn</div><div class="contact-value">Connect with me →</div></div>
+    </a>
+    <a href="#deliverables" class="contact-item">
+      <span class="contact-icon">📁</span>
+      <div><div class="contact-label">Portfolio</div><div class="contact-value">View my work →</div></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">Shruti Basu</span>
+  <p>Data Driven · Story Led · Impact Focused</p>
+  <p>© 2026 · Victoria, BC</p>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button, .work-card, .exp-box, .deliverable-card, .vol-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '24px'; cursor.style.height = '24px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '14px'; cursor.style.height = '14px'; });
+  });
+</script>
+</body>
+</html>

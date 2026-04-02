@@ -1,0 +1,31 @@
+.dot {
+  width: 14px;
+  height: 14px;
+  background: var(--coral);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s, height 0.18s;
+  mix-blend-mode: multiply;
+}
+
+.ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--coral);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 1024px) {
+  .dot,
+  .ring {
+    display: none;
+  }
+}

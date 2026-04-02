@@ -1,0 +1,150 @@
+.section {
+  background: var(--bg);
+  border-bottom: 2px solid var(--ink);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card {
+  border: 2px solid var(--ink);
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+/* Meta sidebar */
+.meta {
+  padding: 2.5rem 2rem;
+  border-right: 2px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.company {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+
+.location {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 0.8rem;
+}
+
+.date {
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid;
+  align-self: flex-start;
+}
+
+/* Body */
+.body {
+  padding: 2.5rem;
+}
+
+.role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 0.6rem;
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.metric {
+  background: var(--lime);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.bullets li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding-left: 1.4rem;
+  position: relative;
+  line-height: 1.6;
+  font-family: 'Fraunces', serif;
+}
+
+.bullets li::before {
+  content: '\2192';
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-size: 0.75rem;
+  top: 0.15rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  background: var(--ink);
+  color: #fff;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .meta {
+    border-right: none;
+    border-bottom: 2px solid var(--ink);
+  }
+}

@@ -1,0 +1,83 @@
+.section {
+  background: var(--ink);
+  color: #fff;
+}
+
+.label {
+  color: var(--lime) !important;
+}
+
+.label::before {
+  background: var(--lime) !important;
+}
+
+.heading {
+  color: #fff;
+}
+
+.heading em {
+  color: var(--lime) !important;
+}
+
+.sub {
+  color: #999;
+  font-family: 'Fraunces', serif;
+  line-height: 1.8;
+  margin-top: -1rem;
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.item {
+  border: 2px solid #333;
+  padding: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s;
+  background: #1a1a1a;
+}
+
+.item:hover {
+  background: var(--coral);
+  border-color: var(--coral);
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--lime);
+}
+
+.icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.itemLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.2rem;
+  transition: color 0.2s;
+}
+
+.item:hover .itemLabel {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.itemValue {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

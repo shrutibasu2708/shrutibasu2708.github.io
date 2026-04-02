@@ -1,0 +1,48 @@
+.section {
+  background: var(--white);
+  border-bottom: 2px solid var(--ink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.card {
+  border: 2px solid var(--ink);
+  padding: 2.5rem;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.degree {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.school {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  margin-bottom: 0.3rem;
+}
+
+.detail {
+  font-size: 0.78rem;
+  opacity: 0.7;
+  font-family: 'Fraunces', serif;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
