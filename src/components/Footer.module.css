@@ -1,0 +1,32 @@
+.footer {
+  background: var(--lime);
+  border-top: 2px solid var(--ink);
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.tagline,
+.copy {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1.5rem;
+  }
+}
