@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Ticker from './components/Ticker';
 import Expertise from './components/Expertise';
 import Experience from './components/Experience';
+import Contact from './components/Contact';
 
 export default function App() {
   return (
@@ -17,7 +18,7 @@ export default function App() {
         <Expertise />
         <Experience />
         <div id="work"       style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff' }}>Work</div>
-        <div id="contact"    style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#111010', color: '#fff' }}>Contact</div>
+        <Contact />
       </main>
     </>
   );
