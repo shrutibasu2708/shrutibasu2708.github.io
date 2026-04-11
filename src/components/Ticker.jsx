@@ -19,9 +19,9 @@ function TickerRow({ children, direction, duration, bg, border }) {
         borderBottom: border ? '1px solid rgba(255,255,255,0.07)' : 'none',
         /* fade first/last ~4% to transparent — works at any viewport width */
         WebkitMaskImage:
-          'linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)',
+          'linear-gradient(to right, rgba(0,0,0,0.3) 0%, black 1.5%, black 98.5%, rgba(0,0,0,0.3) 100%)',
         maskImage:
-          'linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)',
+          'linear-gradient(to right, rgba(0,0,0,0.3) 0%, black 1.5%, black 98.5%, rgba(0,0,0,0.3) 100%)',
       }}
       onMouseEnter={e => {
         e.currentTarget.querySelector('span').style.animationPlayState = 'paused';
