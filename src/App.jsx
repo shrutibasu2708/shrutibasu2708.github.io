@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
+import Hero from './components/Hero';
 
 export default function App() {
   return (
@@ -7,7 +8,7 @@ export default function App() {
       <CustomCursor />
       <Navbar />
       <main>
-        {/* Sections will be added here */}
+        <Hero />
         <div id="about"      style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F9F7F2' }}>About</div>
         <div id="expertise"  style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff' }}>Expertise</div>
         <div id="experience" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F9F7F2' }}>Experience</div>

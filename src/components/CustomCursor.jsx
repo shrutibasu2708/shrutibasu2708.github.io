@@ -27,10 +27,10 @@ export default function CustomCursor() {
       if (!visible) setVisible(true);
     };
     const onEnter = (e) => {
-      if (e.target.closest('a, button, [data-cursor]')) setHovered(true);
+      if (e.target instanceof Element && e.target.closest('a, button, [data-cursor]')) setHovered(true);
     };
     const onLeave = (e) => {
-      if (e.target.closest('a, button, [data-cursor]')) setHovered(false);
+      if (e.target instanceof Element && e.target.closest('a, button, [data-cursor]')) setHovered(false);
     };
 
     window.addEventListener('mousemove', move);
