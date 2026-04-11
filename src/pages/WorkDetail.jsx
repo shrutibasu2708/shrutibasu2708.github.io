@@ -32,21 +32,23 @@ function Lightbox({ artifact, onClose }) {
           alignItems: 'center',
           justifyContent: 'center',
           padding: 'clamp(1rem, 4vw, 3rem)',
+          cursor: 'default',
         }}
       >
         {/* close button */}
         <button
           onClick={onClose}
           style={{
-            position: 'absolute',
+            all: 'unset',
+            position: 'fixed',
             top: '1.25rem',
             right: '1.5rem',
-            all: 'unset',
             color: '#fff',
             fontSize: '1.5rem',
             cursor: 'pointer',
             lineHeight: 1,
             opacity: 0.7,
+            zIndex: 10000,
           }}
         >
           ✕
@@ -67,18 +69,29 @@ function Lightbox({ artifact, onClose }) {
               style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: '4px' }}
             />
           )}
-          {(artifact.type === 'pdf' || artifact.type === 'video') && (
+          {artifact.type === 'pdf' && (
             <iframe
               src={`https://drive.google.com/file/d/${artifact.driveId}/preview`}
               title={artifact.caption}
               allow="autoplay"
-              style={{
-                width: 'min(860px, 88vw)',
-                height: artifact.type === 'pdf' ? 'min(680px, 80vh)' : 'min(480px, 60vh)',
-                border: 'none',
-                borderRadius: '4px',
-                background: '#000',
-              }}
+              style={{ width: 'min(860px, 88vw)', height: 'min(680px, 80vh)', border: 'none', borderRadius: '4px', background: '#000' }}
+            />
+          )}
+          {artifact.type === 'video' && artifact.youtubeId && (
+            <iframe
+              src={`https://www.youtube.com/embed/${artifact.youtubeId}?autoplay=1`}
+              title={artifact.caption}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{ width: 'min(860px, 88vw)', height: 'min(480px, 60vh)', border: 'none', borderRadius: '4px', background: '#000' }}
+            />
+          )}
+          {artifact.type === 'video' && artifact.driveId && (
+            <iframe
+              src={`https://drive.google.com/file/d/${artifact.driveId}/preview`}
+              title={artifact.caption}
+              allow="autoplay"
+              style={{ width: 'min(860px, 88vw)', height: 'min(480px, 60vh)', border: 'none', borderRadius: '4px', background: '#000' }}
             />
           )}
           {artifact.caption && (
@@ -107,9 +120,6 @@ function ArtifactCard({ artifact, onClick }) {
   const isImage = artifact.type === 'image';
   const isPdf   = artifact.type === 'pdf';
   const isVideo = artifact.type === 'video';
-
-  const iconLabel = isPdf ? 'PDF' : isVideo ? 'Video' : null;
-  const icon      = isPdf ? '📄' : isVideo ? '▶' : null;
 
   return (
     <button
@@ -143,10 +153,26 @@ function ArtifactCard({ artifact, onClick }) {
             style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }}
           />
         )}
-        {(isPdf || isVideo) && (
-          <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'var(--color-surface)' }}>
-            <span style={{ fontSize: '2rem', lineHeight: 1 }}>{icon}</span>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-muted)' }}>{iconLabel}</span>
+        {isPdf && (
+          <img
+            src={`https://drive.google.com/thumbnail?id=${artifact.driveId}&sz=w400`}
+            alt={artifact.caption}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }}
+          />
+        )}
+        {isVideo && (
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <img
+              src={`https://img.youtube.com/vi/${artifact.youtubeId}/mqdefault.jpg`}
+              alt={artifact.caption}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease', transform: hovered ? 'scale(1.04)' : 'scale(1)' }}
+            />
+            {/* play badge */}
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: '50%', background: 'rgba(17,16,16,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ color: '#fff', fontSize: '0.9rem', marginLeft: '2px' }}>▶</span>
+              </div>
+            </div>
           </div>
         )}
         {/* hover overlay */}
@@ -313,29 +339,70 @@ export default function WorkDetail() {
         </motion.div>
 
         {/* ── artifacts gallery ── */}
+        {hasArtifacts && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
           <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 'clamp(2rem, 4vw, 3rem)' }}>
-            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '0.62rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-ink-muted)', marginBottom: hasArtifacts ? '1.75rem' : '1rem' }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 600, fontStyle: 'italic', color: 'var(--color-accent)', marginBottom: '2rem' }}>
               Artifacts
             </p>
 
-            {hasArtifacts ? (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'clamp(1rem, 2vw, 1.75rem)' }}>
-                {entry.artifacts.map((artifact, i) => (
-                  <ArtifactCard key={i} artifact={artifact} onClick={() => setLightbox(i)} />
-                ))}
-              </div>
-            ) : (
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.88rem', color: 'var(--color-ink-muted)', opacity: 0.6, fontStyle: 'italic' }}>
-                Artifacts coming soon.
-              </p>
-            )}
+            {(() => {
+              const images = entry.artifacts.map((a, i) => ({ ...a, _i: i })).filter(a => a.type === 'image');
+              const videos = entry.artifacts.map((a, i) => ({ ...a, _i: i })).filter(a => a.type === 'video');
+              const pdfs   = entry.artifacts.map((a, i) => ({ ...a, _i: i })).filter(a => a.type === 'pdf');
+
+              const SUBSECTION_LABEL = {
+                fontFamily: 'var(--font-body)',
+                fontWeight: 700,
+                fontSize: '0.58rem',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: 'var(--color-ink)',
+                marginBottom: '1rem',
+              };
+
+              return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(2rem, 4vw, 3rem)' }}>
+                  {images.length > 0 && (
+                    <div>
+                      <p style={SUBSECTION_LABEL}>Images</p>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'clamp(1rem, 2vw, 1.75rem)' }}>
+                        {images.map(a => (
+                          <ArtifactCard key={a._i} artifact={a} onClick={() => setLightbox(a._i)} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {videos.length > 0 && (
+                    <div>
+                      <p style={SUBSECTION_LABEL}>Videos</p>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'clamp(1rem, 2vw, 1.75rem)' }}>
+                        {videos.map(a => (
+                          <ArtifactCard key={a._i} artifact={a} onClick={() => setLightbox(a._i)} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {pdfs.length > 0 && (
+                    <div>
+                      <p style={SUBSECTION_LABEL}>PDFs</p>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'clamp(1rem, 2vw, 1.75rem)' }}>
+                        {pdfs.map(a => (
+                          <ArtifactCard key={a._i} artifact={a} onClick={() => setLightbox(a._i)} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         </motion.div>
+        )}
       </main>
     </>
   );
