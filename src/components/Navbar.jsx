@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { logo, links, cta } from '../content/nav';
 
 export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false);
   const [active,   setActive]     = useState('');
   const [open,     setOpen]       = useState(false);
+  const navigate  = useNavigate();
+  const location  = useLocation();
+  const isHome    = location.pathname === '/';
 
   /* ── Scroll detection ── */
   useEffect(() => {
@@ -47,6 +51,19 @@ export default function Navbar() {
   /* ── Close drawer when a link is clicked ── */
   const handleLinkClick = () => setOpen(false);
 
+  /* ── Nav click: scroll on home, navigate+scroll from detail pages ── */
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setOpen(false);
+    const id = href.replace('#', '');
+    if (isHome) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/', { state: { scrollTo: id } });
+    }
+  };
+
   return (
     <>
       <header
@@ -62,7 +79,8 @@ export default function Navbar() {
 
           {/* ── Logo ── */}
           <a
-            href="#"
+            href="/"
+            onClick={e => { e.preventDefault(); if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' }); else navigate('/'); }}
             className="flex items-baseline gap-[3px] select-none"
             aria-label="Shruti Basu — home"
           >
@@ -89,6 +107,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={e => handleNavClick(e, link.href)}
                   className="relative pb-0.5"
                   style={{
                     fontFamily: 'var(--font-body)',
@@ -119,6 +138,7 @@ export default function Navbar() {
           {/* ── Desktop CTA ── */}
           <a
             href={cta.href}
+            onClick={e => handleNavClick(e, cta.href)}
             className="hidden md:inline-flex items-center gap-2 text-[0.7rem] font-bold tracking-[0.14em] uppercase transition-all duration-200 group"
             style={{
               fontFamily: 'var(--font-body)',
@@ -192,7 +212,7 @@ export default function Navbar() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={handleLinkClick}
+                  onClick={e => handleNavClick(e, link.href)}
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.045, duration: 0.22 }}
@@ -217,7 +237,7 @@ export default function Navbar() {
               ))}
               <motion.a
                 href={cta.href}
-                onClick={handleLinkClick}
+                onClick={e => handleNavClick(e, cta.href)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: links.length * 0.045 + 0.05 }}
