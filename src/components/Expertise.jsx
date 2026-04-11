@@ -217,7 +217,7 @@ export default function Expertise() {
         </div>
 
         {/* ── How I Think ── */}
-        <div ref={thinkRef}>
+        <div ref={thinkRef} style={{ marginTop: 'clamp(2.5rem, 5vw, 4rem)' }}>
           <motion.p className="eyebrow" initial={{ opacity: 0, x: -16 }} animate={thinkInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.45 }}>How I Think</motion.p>
           <motion.h2 initial={{ opacity: 0, y: 20 }} animate={thinkInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 clamp(2rem, 4vw, 3.5rem)' }}>
             My approach to growth.<br /><em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>Not gut-feel. Evidence.</em>
