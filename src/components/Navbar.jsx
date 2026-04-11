@@ -59,6 +59,8 @@ export default function Navbar() {
     if (isHome) {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
+      // Update URL hash so the link is shareable/bookmarkable
+      history.replaceState(null, '', `#${id}`);
     } else {
       navigate('/', { state: { scrollTo: id } });
     }

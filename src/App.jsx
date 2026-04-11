@@ -16,12 +16,22 @@ function HomePage() {
 
   useEffect(() => {
     if (location.state?.scrollTo) {
-      const el = document.getElementById(location.state.scrollTo);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      // Clear the state so browser back doesn't retrigger the scroll
+      const id = location.state.scrollTo;
       navigate(location.pathname, { replace: true, state: null });
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    } else if (location.hash) {
+      const id = location.hash.slice(1);
+      // Small delay to let sections mount before scrolling
+      const t = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return () => clearTimeout(t);
     }
-  }, [location.state]);
+  }, [location.state, location.hash]);
 
   return (
     <>
