@@ -10,8 +10,8 @@ const links = [
   },
   {
     label: 'LinkedIn',
-    value: 'linkedin.com/in/shrutibasu2708',
-    href: 'https://www.linkedin.com/in/shrutibasu2708/',
+    value: 'linkedin.com/in/shruti-basu-b7993713a',
+    href: 'https://www.linkedin.com/in/shruti-basu-b7993713a/',
     eyebrow: 'Connect',
     external: true,
   },
