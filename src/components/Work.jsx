@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { work } from '../content/work';
 
@@ -262,6 +263,33 @@ function ExperiencePanel({ exp }) {
             </span>
           ))}
         </div>
+
+        {/* view work link */}
+        <Link
+          to={`/work/${exp.slug}`}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            marginTop: '1.5rem',
+            padding: '0.55rem 1.25rem',
+            background: 'var(--color-ink)',
+            color: '#fff',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            borderRadius: '3px',
+            transition: 'background 0.2s ease',
+            textDecoration: 'none',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'var(--color-accent)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'var(--color-ink)'}
+        >
+          View Work <span style={{ fontSize: '0.9rem' }}>→</span>
+        </Link>
+
       </div>
     </motion.div>
   );

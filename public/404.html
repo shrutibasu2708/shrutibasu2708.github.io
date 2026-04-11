@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shruti Basu</title>
+    <script>
+      // GitHub Pages SPA redirect — preserve the full path in sessionStorage
+      // then redirect to the root so index.html can restore the URL via history.
+      var l = window.location;
+      sessionStorage.redirect = l.pathname + l.search + l.hash;
+      l.replace(l.protocol + '//' + l.host + '/');
+    </script>
+  </head>
+  <body></body>
+</html>

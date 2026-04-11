@@ -1,14 +1,17 @@
 export const work = [
   {
+    slug: 'city-green-solutions',
     company: 'City Green Solutions',
     location: 'Victoria, BC',
     period: 'Jul 2023 – Dec 2025',
     type: 'Full-Time',
     role: 'Marketing & Customer Experience Specialist',
+    description:
+      'At City Green Solutions I owned the full marketing function for a government-funded home energy retrofit program — from strategy through execution. The work spanned lifecycle email campaigns, paid social, event marketing, and CRM-driven audience segmentation across five municipal districts in British Columbia. The biggest challenge was low program participation despite active outreach: residents weren\'t engaging because messaging wasn\'t tailored to their stage or eligibility. I rebuilt the communication architecture in HubSpot, segmented audiences by behaviour and eligibility, and designed drip sequences for every stage of the funnel. I also conceived and produced the Retrofit Community Festival — an annual event connecting homeowners with certified contractors — which became the program\'s highest-engagement channel.',
     stats: [
       { value: '↑25–35%', label: 'Program Engagement' },
-      { value: '↓20%',   label: 'Drop-off Rate'       },
-      { value: '↑15%',   label: 'Email Engagement'    },
+      { value: '↓20%',    label: 'Drop-off Rate'       },
+      { value: '↑15%',    label: 'Email Engagement'    },
     ],
     bullets: [
       'Planned and executed multi-channel lifecycle campaigns across email, social, and web — contributing to a 25–35% increase in program engagement.',
@@ -19,15 +22,23 @@ export const work = [
       'Built GA4 dashboards and ran A/B tests to refine messaging, boosting engagement rates by 15%.',
     ],
     tools: ['HubSpot', 'GA4', 'Email Marketing', 'Meta Ads', 'Google Ads', 'A/B Testing', 'Event Marketing', 'Market Research'],
+    artifacts: [
+      // { type: 'image', src: '/artifacts/city-green-solutions/filename.jpg', caption: 'Caption here' },
+      // { type: 'pdf', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+      // { type: 'video', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+    ],
   },
   {
+    slug: 'her-helping-habit',
     company: 'Her Helping Habit',
     location: 'Vancouver, BC',
     period: 'Feb 2023 – Jul 2023',
     type: 'Contract',
     role: 'Marketing Lead',
+    description:
+      'Her Helping Habit is a women\'s wellness brand with a growing international audience. I joined as Marketing Lead to take the brand from a single-market operation to a multi-country presence — on a limited budget and without local teams on the ground. I audited every paid channel from scratch, identified where budget was being wasted, and rebuilt acquisition campaigns with structured A/B testing and tighter audience segmentation. Alongside performance work, I relaunched the Fertility Frontier podcast and led a small content team producing web, social, and audio output. The international expansion — Mexico, Finland, Australia — was validated market by market using paid performance data before committing additional spend.',
     stats: [
-      { value: '↑30%', label: 'Lead Conversions'    },
+      { value: '↑30%', label: 'Lead Conversions'   },
       { value: '↓40%', label: 'CPA'                 },
       { value: '×4',   label: 'Countries Expanded'  },
     ],
@@ -40,13 +51,21 @@ export const work = [
       'Grew organic acquisition by 25% via SEO-optimised web architecture and content strategies.',
     ],
     tools: ['Mailchimp', 'Meta Ads', 'SEO', 'Podcast Strategy', 'International Expansion', 'Lead Nurturing'],
+    artifacts: [
+      // { type: 'image', src: '/artifacts/her-helping-habit/filename.jpg', caption: 'Caption here' },
+      // { type: 'pdf', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+      // { type: 'video', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+    ],
   },
   {
+    slug: 'vinn-automotive',
     company: 'VINN Automotive',
     location: 'Victoria, BC',
     period: 'Aug 2022 – Jan 2023',
     type: 'Full-Time',
     role: 'Marketing Specialist',
+    description:
+      'VINN Automotive is a subscription-based car dealership — a relatively new model in the Canadian market. I managed the full performance marketing stack: paid acquisition, lifecycle email, CRM, and analytics tooling. The challenge was funnel visibility — the team didn\'t have a clear picture of where users were dropping off between first touch and purchase. I integrated Close CRM with GA4, Tag Manager, and Hotjar to build a cohesive tracking layer. With drop-off data in hand, I redesigned the email retention sequences and ran paid campaigns with continuous A/B testing, lifting retention and conversion by 30%.',
     stats: [
       { value: '↑30%', label: 'Retention & Conversion' },
     ],
@@ -57,13 +76,21 @@ export const work = [
       'Ran paid acquisition campaigns with ongoing A/B testing to improve marketing ROI.',
     ],
     tools: ['Close CRM', 'GA4', 'Hotjar', 'Paid Ads', 'A/B Testing', 'Tag Manager'],
+    artifacts: [
+      // { type: 'image', src: '/artifacts/vinn-automotive/filename.jpg', caption: 'Caption here' },
+      // { type: 'pdf', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+      // { type: 'video', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+    ],
   },
   {
+    slug: 'regal-immigration',
     company: 'Regal Immigration',
     location: 'Surrey, BC',
     period: 'Dec 2021 – Mar 2022',
     type: 'Full-Time',
     role: 'Marketing Coordinator',
+    description:
+      'Regal Immigration is a consultancy helping clients navigate Canadian immigration processes. I came in as Marketing Coordinator to strengthen their digital presence and improve how they were communicating with prospective clients online. I ran an SEO audit that surfaced several UX barriers on the site, produced social content and digital materials, and put in place a more structured content calendar to support consistent brand communication.',
     stats: [],
     bullets: [
       'Developed and executed digital communication strategies enhancing brand awareness and client acquisition.',
@@ -71,13 +98,20 @@ export const work = [
       'Produced social content, digital materials, and leadership reports supporting cross-functional collaboration.',
     ],
     tools: ['SEO', 'Content Strategy', 'Digital Comms', 'Analytics'],
+    artifacts: [
+      // { type: 'image', src: '/artifacts/regal-immigration/filename.jpg', caption: 'Caption here' },
+      // { type: 'pdf', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+    ],
   },
   {
+    slug: 'consultants-factory',
     company: 'Consultants Factory',
     location: 'Bangalore, India',
     period: 'Jan 2020 – Dec 2020',
     type: 'Dual Role',
     role: 'Business Manager → Marketing Intern',
+    description:
+      'Consultants Factory is a Bangalore-based cybersecurity IT training company. I started as a Marketing Intern and moved into a Business Manager role within the same year. The position gave me broad exposure to the full marketing mix — CRM integration, campaign management, content production across video and social, and direct stakeholder reporting. I ran Google Ads and LinkedIn Ads campaigns and advised leadership on KPI-driven strategy adjustments based on ongoing performance data.',
     stats: [],
     bullets: [
       'Led product marketing and communication initiatives — CRM integration, campaign management, and stakeholder reporting for a cybersecurity IT training company.',
@@ -85,5 +119,10 @@ export const work = [
       'Ran outreach and lead generation through targeted messaging, and advised executives on KPI-driven strategy adjustments.',
     ],
     tools: ['CRM', 'Graphic Design', 'Google Ads', 'LinkedIn Ads', 'Copywriting', 'Blog Writing'],
+    artifacts: [
+      // { type: 'image', src: '/artifacts/consultants-factory/filename.jpg', caption: 'Caption here' },
+      // { type: 'pdf', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+      // { type: 'video', driveId: 'GOOGLE_DRIVE_FILE_ID', caption: 'Caption here' },
+    ],
   },
 ];
