@@ -56,6 +56,7 @@ export default function Navbar() {
             ? 'bg-[var(--color-bg)] shadow-[0_1px_0_var(--color-border)]'
             : 'bg-transparent',
         ].join(' ')}
+        style={{ width: '100%', maxWidth: '100vw' }}
       >
         <div className="page-x flex items-center justify-between h-[68px]">
 

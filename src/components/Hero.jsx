@@ -28,21 +28,25 @@ function useCountUp(target, duration, active) {
 /* ─────────────────────────────────────────
    Single stat cell
 ───────────────────────────────────────── */
-function StatItem({ number, suffix, label, index, active, isLast }) {
+function StatItem({ number, suffix, label, index, active }) {
   const count = useCountUp(number, 1.4, active);
+
+  // mobile (2-col): right border on left column (0,2), bottom border on top row (0,1)
+  // desktop (4-col): right border on all except last (0,1,2), no bottom border
+  const mobileRightBorder  = index % 2 === 0;     // cols 0,2
+  const mobileBottomBorder = index < 2;            // row 0
+  const desktopRightBorder = index < 3;            // all except last
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.08 * index, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="stat-item flex flex-col items-center text-center"
       style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '2rem 1rem',
-        borderRight: !isLast ? '1px solid var(--color-border)' : 'none',
-        textAlign: 'center',
+        padding: '1.75rem 1rem',
+        borderRight:  mobileRightBorder  ? '1px solid var(--color-border)' : 'none',
+        borderBottom: mobileBottomBorder ? '1px solid var(--color-border)' : 'none',
       }}
     >
       <span
@@ -406,11 +410,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0  }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          style={{
-            display: 'flex',
-            borderTop:    '1px solid var(--color-border)',
-            borderBottom: '1px solid var(--color-border)',
-          }}
+          className="grid grid-cols-2 md:grid-cols-4"
+          style={{ borderTop: '1px solid var(--color-border)' }}
         >
           {stats.map((s, i) => (
             <StatItem
@@ -418,7 +419,6 @@ export default function Hero() {
               {...s}
               index={i}
               active={statsOn}
-              isLast={i === stats.length - 1}
             />
           ))}
         </motion.div>
