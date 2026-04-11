@@ -1,213 +1,372 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'motion/react';
-import { cases } from '../content/work';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'motion/react';
+import { work } from '../content/work';
 
-/* ─── column label style (not using .eyebrow class — avoids the orange dash) ─── */
-const COL_LABEL = {
-  display: 'block',
-  fontFamily: 'var(--font-body)',
-  fontSize: '0.62rem',
-  fontWeight: 700,
-  letterSpacing: '0.2em',
-  textTransform: 'uppercase',
-  marginBottom: '0.8rem',
-};
-
-function CaseRow({ c }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-
+/* ─────────────────────────────────────────
+   Left sidebar — company list
+───────────────────────────────────────── */
+function CompanyList({ activeIndex, onSelect }) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 36 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      style={{
-        borderTop: '1px solid var(--color-border)',
-        paddingTop: 'clamp(2rem, 4vw, 3rem)',
-        paddingBottom: 'clamp(2rem, 4vw, 3rem)',
-      }}
-    >
-      {/* ── ghost number + tag chips ── */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '0.75rem',
-          marginBottom: 'clamp(0.5rem, 1.2vw, 1rem)',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(4rem, 8vw, 7rem)',
-            fontWeight: 700,
-            lineHeight: 1,
-            color: 'rgba(17,16,16,0.06)',
-            letterSpacing: '-0.04em',
-            userSelect: 'none',
-          }}
-        >
-          {c.num}
-        </span>
-
-        <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignSelf: 'center' }}>
-          {c.tags.map((t) => (
-            <span
-              key={t}
-              style={{
-                padding: '0.22rem 0.65rem',
-                border: '1px solid var(--color-border-dark)',
-                color: 'var(--color-ink-muted)',
-                fontSize: '0.62rem',
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                borderRadius: '2px',
-              }}
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* ── title ── */}
-      <h3
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(1.35rem, 2.5vw, 2rem)',
-          fontWeight: 700,
-          lineHeight: 1.1,
-          letterSpacing: '-0.02em',
-          color: 'var(--color-ink)',
-          marginBottom: 'clamp(1.5rem, 2.5vw, 2.25rem)',
-          maxWidth: '64ch',
-        }}
-      >
-        {c.title}
-      </h3>
-
-      {/* ── 3-column panel ── */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: 'clamp(1.5rem, 3vw, 2.5rem)',
-        }}
-      >
-        {/* The Problem */}
-        <div>
-          <span style={{ ...COL_LABEL, color: 'var(--color-ink-muted)' }}>The Problem</span>
-          <p style={{ fontSize: '0.9rem', color: 'var(--color-ink)', lineHeight: 1.75, opacity: 0.82 }}>
-            {c.problem}
-          </p>
-        </div>
-
-        {/* What I Did */}
-        <div>
-          <span style={{ ...COL_LABEL, color: 'var(--color-ink-muted)' }}>What I Did</span>
-          <p style={{ fontSize: '0.9rem', color: 'var(--color-ink)', lineHeight: 1.75, opacity: 0.82 }}>
-            {c.action}
-          </p>
-        </div>
-
-        {/* The Outcome */}
-        <div>
-          <span style={{ ...COL_LABEL, color: 'var(--color-accent)' }}>The Outcome</span>
-
-          {/* lime metric callout */}
-          <div
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', paddingTop: '0.5rem' }}>
+      {work.map((exp, i) => {
+        const isActive = activeIndex === i;
+        return (
+          <button
+            key={i}
+            onClick={() => onSelect(i)}
             style={{
-              background: 'var(--color-pop)',
-              color: 'var(--color-ink)',
-              padding: '0.65rem 1rem',
-              borderRadius: '3px',
-              marginBottom: '0.9rem',
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(0.92rem, 1.4vw, 1.08rem)',
-              fontWeight: 700,
-              lineHeight: 1.25,
+              all: 'unset',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.2rem',
+              padding: '1.1rem 0',
+              borderBottom: '1px solid var(--color-border)',
+              cursor: 'pointer',
+              position: 'relative',
+              paddingLeft: isActive ? '1rem' : '0',
+              transition: 'padding-left 0.2s ease',
             }}
           >
-            {c.metric}
+            {/* active indicator bar */}
+            <span
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: isActive ? '3px' : '0px',
+                height: '60%',
+                background: 'var(--color-accent)',
+                borderRadius: '2px',
+                transition: 'width 0.2s ease',
+              }}
+            />
+            <span
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                color: isActive ? 'var(--color-accent)' : 'var(--color-ink)',
+                transition: 'color 0.2s ease',
+                lineHeight: 1.2,
+              }}
+            >
+              {exp.company}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.72rem',
+                fontWeight: 500,
+                color: isActive ? 'var(--color-ink)' : 'var(--color-ink-muted)',
+                transition: 'color 0.2s ease',
+                lineHeight: 1.3,
+              }}
+            >
+              {exp.role}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.6rem',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: isActive ? 'var(--color-ink-muted)' : 'rgba(107,101,96,0.4)',
+                transition: 'color 0.2s ease',
+              }}
+            >
+              {exp.location} · {exp.period}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Right panel — single role detail
+───────────────────────────────────────── */
+function ExperiencePanel({ exp }) {
+  return (
+    <motion.div
+      key={exp.company}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -16 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      style={{ paddingTop: '0', paddingBottom: '3rem' }}
+    >
+      <div>
+        {/* header */}
+        <div style={{ marginBottom: '1.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+            <span
+              style={{
+                display: 'inline-flex',
+                padding: '0.2rem 0.65rem',
+                background: 'var(--color-pop)',
+                borderRadius: '100px',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.6rem',
+                fontWeight: 700,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--color-ink)',
+              }}
+            >
+              {exp.type}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.68rem',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: 'var(--color-ink-muted)',
+              }}
+            >
+              {exp.period} · {exp.location}
+            </span>
           </div>
 
-          <p style={{ fontSize: '0.9rem', color: 'var(--color-ink)', lineHeight: 1.75, opacity: 0.82 }}>
-            {c.outcome}
+          <h3
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
+              fontWeight: 700,
+              lineHeight: 1.15,
+              color: 'var(--color-ink)',
+              margin: '0 0 0.25rem',
+            }}
+          >
+            {exp.role}
+          </h3>
+          <p
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              fontStyle: 'italic',
+              color: 'var(--color-accent)',
+              margin: 0,
+            }}
+          >
+            {exp.company}
           </p>
+        </div>
+
+        {/* stat callouts */}
+        {exp.stats.length > 0 && (
+          <div
+            style={{
+              display: 'flex',
+              gap: '1px',
+              background: 'var(--color-border)',
+              border: '1px solid var(--color-border)',
+              marginBottom: '1.75rem',
+            }}
+          >
+            {exp.stats.map((stat, si) => (
+              <div
+                key={si}
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.25rem',
+                  padding: '1rem 1.25rem',
+                  background: 'var(--color-surface)',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.4rem, 2.2vw, 1.9rem)',
+                    fontWeight: 700,
+                    color: 'var(--color-accent)',
+                    lineHeight: 1,
+                  }}
+                >
+                  {stat.value}
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.65rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.09em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-ink-muted)',
+                  }}
+                >
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* bullets */}
+        <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.75rem' }}>
+          {exp.bullets.map((bullet, bi) => (
+            <li
+              key={bi}
+              style={{
+                display: 'flex',
+                gap: '0.75rem',
+                alignItems: 'flex-start',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.88rem',
+                lineHeight: 1.75,
+                color: 'var(--color-ink-muted)',
+              }}
+            >
+              <span
+                style={{
+                  color: 'var(--color-accent)',
+                  flexShrink: 0,
+                  marginTop: '0.35rem',
+                  fontSize: '0.55rem',
+                }}
+              >
+                ✦
+              </span>
+              {bullet}
+            </li>
+          ))}
+        </ul>
+
+        {/* tool tags */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+          {exp.tools.map(tool => (
+            <span
+              key={tool}
+              style={{
+                display: 'inline-flex',
+                padding: '0.3rem 0.7rem',
+                border: '1px solid var(--color-border)',
+                borderRadius: '4px',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.65rem',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: 'var(--color-ink-muted)',
+                background: 'var(--color-surface)',
+              }}
+            >
+              {tool}
+            </span>
+          ))}
         </div>
       </div>
     </motion.div>
   );
 }
 
+/* ─────────────────────────────────────────
+   Work section
+───────────────────────────────────────── */
 export default function Work() {
+  const [activeIndex, setActiveIndex] = useState(0);
   const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: '-50px' });
+  const headerInView = useInView(headerRef, { once: true, margin: '-60px' });
+
+  const handleSelect = (i) => setActiveIndex(i);
 
   return (
     <section
       id="work"
       style={{
-        background: 'var(--color-bg)',
-        paddingLeft: 'clamp(1.2rem, 5vw, 6rem)',
-        paddingRight: 'clamp(1.2rem, 5vw, 6rem)',
+        background: 'var(--color-surface)',
         paddingTop: 'clamp(3rem, 6vw, 5rem)',
-        paddingBottom: 'clamp(3rem, 6vw, 5rem)',
       }}
     >
-      {/* ── section header ── */}
-      <div ref={headerRef} style={{ marginBottom: 'clamp(0.5rem, 1vw, 1rem)' }}>
-        <motion.p
-          className="eyebrow"
-          initial={{ opacity: 0, x: -16 }}
-          animate={headerInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.45 }}
-        >
-          Case Studies
-        </motion.p>
+      <div className="page-x">
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        {/* ── section header ── */}
+        <div ref={headerRef} style={{ marginBottom: '2rem' }}>
+          <motion.p
+            className="eyebrow"
+            initial={{ opacity: 0, x: -16 }}
+            animate={headerInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.45 }}
+          >
+            Where I've Made an Impact
+          </motion.p>
+        </div>
+
+        {/* ── sticky split layout — desktop only ── */}
+        <div
+          className="hidden md:grid"
           style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2rem, 4.5vw, 3.6rem)',
-            fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: '-0.025em',
-            color: 'var(--color-ink)',
-            margin: '0 0 clamp(0.75rem, 1.5vw, 1.1rem)',
+            gridTemplateColumns: '1fr 2fr',
+            gap: '0 4rem',
+            alignItems: 'start',
+            paddingBottom: 'clamp(4rem, 8vw, 7rem)',
           }}
         >
-          Real problems.{' '}
-          <em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>Real results.</em>
-        </motion.h2>
+          {/* LEFT — sticky sidebar */}
+          <div
+            style={{
+              position: 'sticky',
+              top: '88px',
+            }}
+          >
+            <CompanyList activeIndex={activeIndex} onSelect={handleSelect} />
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          style={{
-            fontSize: 'clamp(0.92rem, 1.4vw, 1.05rem)',
-            color: 'var(--color-ink-muted)',
-            lineHeight: 1.75,
-          }}
-        >
-          Not concepts — campaigns I ran, problems I solved, and outcomes I can stand behind.
-        </motion.p>
-      </div>
+          {/* RIGHT — single active panel */}
+          <div style={{ minHeight: '520px' }}>
+            <AnimatePresence mode="wait">
+              <ExperiencePanel
+                key={activeIndex}
+                exp={work[activeIndex]}
+              />
+            </AnimatePresence>
+          </div>
+        </div>
 
-      {/* ── case study rows ── */}
-      <div>
-        {cases.map((c) => (
-          <CaseRow key={c.num} c={c} />
-        ))}
+        {/* ── mobile — tab selector + single panel ── */}
+        <div className="md:hidden" style={{ paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
+          {/* mobile company tabs */}
+          <div style={{ display: 'flex', overflowX: 'auto', gap: '0.5rem', paddingBottom: '1.25rem', marginBottom: '0.5rem', borderBottom: '1px solid var(--color-border)' }}>
+            {work.map((exp, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                style={{
+                  all: 'unset',
+                  display: 'inline-flex',
+                  flexShrink: 0,
+                  padding: '0.4rem 1rem',
+                  borderRadius: '100px',
+                  border: activeIndex === i ? '1.5px solid var(--color-accent)' : '1.5px solid var(--color-border)',
+                  background: activeIndex === i ? 'var(--color-accent)' : 'transparent',
+                  color: activeIndex === i ? '#fff' : 'var(--color-ink)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  letterSpacing: '0.04em',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {exp.company}
+              </button>
+            ))}
+          </div>
+          <AnimatePresence mode="wait">
+            <ExperiencePanel
+              key={activeIndex}
+              exp={work[activeIndex]}
+            />
+          </AnimatePresence>
+        </div>
+
       </div>
     </section>
   );

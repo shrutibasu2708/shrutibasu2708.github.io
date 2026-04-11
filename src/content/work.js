@@ -1,50 +1,89 @@
-export const cases = [
+export const work = [
   {
-    num: '01',
-    tags: ['Healthcare', 'Google Ads', 'Volunteer'],
-    title: 'Scaling patient acquisition for a physiotherapy clinic',
-    problem:
-      'Campaigns were generating traffic but not qualified bookings. High competition and rising ad costs in healthcare were eroding returns with no clear patient segmentation.',
-    action:
-      'Segmented campaigns by patient type — ICBC, WorkSafe BC, and private clients. Rebuilt Google Ads structure, rewrote copy per segment, and optimised landing pages for each intent.',
-    metric: 'Highest-revenue week on record',
-    outcome:
-      "Increased CTR, reduced CPA, improved qualified lead volume — contributing to the clinic's highest-revenue week on record.",
+    company: 'City Green Solutions',
+    location: 'Victoria, BC',
+    period: 'Jul 2023 – Dec 2025',
+    type: 'Full-Time',
+    role: 'Marketing & Customer Experience Specialist',
+    stats: [
+      { value: '↑25–35%', label: 'Program Engagement' },
+      { value: '↓20%',   label: 'Drop-off Rate'       },
+      { value: '↑15%',   label: 'Email Engagement'    },
+    ],
+    bullets: [
+      'Planned and executed multi-channel lifecycle campaigns across email, social, and web — contributing to a 25–35% increase in program engagement.',
+      'Developed and optimised customer journey touchpoints reducing user drop-offs by 20% across Instagram, LinkedIn, and YouTube.',
+      'Managed CRM-driven communications via HubSpot, segmenting audiences for targeted messaging based on user behaviour and program eligibility.',
+      'Designed and conducted market research and surveys for 5 municipal districts across British Columbia.',
+      'Designed, branded, and executed the Retrofit Community Festival — an annual event connecting homeowners with certified contractors.',
+      'Built GA4 dashboards and ran A/B tests to refine messaging, boosting engagement rates by 15%.',
+    ],
+    tools: ['HubSpot', 'GA4', 'Email Marketing', 'Meta Ads', 'Google Ads', 'A/B Testing', 'Event Marketing', 'Market Research'],
   },
   {
-    num: '02',
-    tags: ['D2C Brand', 'Paid Social', 'International'],
-    title: 'Scaling a brand across 3 new countries without a local team',
-    problem:
-      'A Canadian brand expanding internationally with no local knowledge, no market-entry strategy, and limited budget to test new territories.',
-    action:
-      'Ran geo-targeted paid campaigns with localised messaging per market. Tested audience segments, adapted creative, and tracked performance country-by-country before scaling spend.',
-    metric: '3 new international markets',
-    outcome:
-      'Successfully expanded brand reach into Mexico, Finland, and Australia. Each market validated with paid performance data before committing additional budget.',
+    company: 'Her Helping Habit',
+    location: 'Vancouver, BC',
+    period: 'Feb 2023 – Jul 2023',
+    type: 'Contract',
+    role: 'Marketing Lead',
+    stats: [
+      { value: '↑30%', label: 'Lead Conversions'    },
+      { value: '↓40%', label: 'CPA'                 },
+      { value: '×4',   label: 'Countries Expanded'  },
+    ],
+    bullets: [
+      'Directed integrated lifecycle campaigns — content, email, and social — driving a 30% increase in lead conversions.',
+      'Expanded the program internationally from Canada to Mexico, Finland, Australia, and parts of Europe.',
+      'Audited all paid acquisition channels, optimising CPA by 40% through A/B testing and audience segmentation across Search, Display, and Meta Ads.',
+      'Relaunched the Fertility Frontier podcast — creating 2 episodes/month and securing a full year\'s content pipeline.',
+      'Led a team of 3 managing content across web, social, and podcast platforms.',
+      'Grew organic acquisition by 25% via SEO-optimised web architecture and content strategies.',
+    ],
+    tools: ['Mailchimp', 'Meta Ads', 'SEO', 'Podcast Strategy', 'International Expansion', 'Lead Nurturing'],
   },
   {
-    num: '03',
-    tags: ['Lifecycle Marketing', 'HubSpot', 'CRM'],
-    title: 'Rebuilding engagement for a multi-city rebate program',
-    problem:
-      "Low program participation despite active outreach. Residents and municipalities weren't engaging because messaging wasn't tailored to their stage or eligibility.",
-    action:
-      'Built segmented HubSpot workflows based on user behaviour and eligibility. Designed drip campaigns for awareness, consideration, and post-sign-up activation stages.',
-    metric: '25–35% engagement lift',
-    outcome:
-      '25–35% increase in program engagement and participation. 20% reduction in drop-offs across key digital channels including Instagram, LinkedIn, and YouTube.',
+    company: 'VINN Automotive',
+    location: 'Victoria, BC',
+    period: 'Aug 2022 – Jan 2023',
+    type: 'Full-Time',
+    role: 'Marketing Specialist',
+    stats: [
+      { value: '↑30%', label: 'Retention & Conversion' },
+    ],
+    bullets: [
+      'Managed end-to-end lifecycle and performance marketing integrating paid, organic, and CRM channels.',
+      'Integrated and optimised Close CRM, GA4, Tag Manager, and Hotjar to improve funnel visibility.',
+      'Analysed drop-off data and implemented email marketing improvements boosting retention and conversion by 30%.',
+      'Ran paid acquisition campaigns with ongoing A/B testing to improve marketing ROI.',
+    ],
+    tools: ['Close CRM', 'GA4', 'Hotjar', 'Paid Ads', 'A/B Testing', 'Tag Manager'],
   },
   {
-    num: '04',
-    tags: ['Paid Acquisition', 'Meta & Search', 'Lead Gen'],
-    title: 'Reducing cost per acquisition by 20% for a nonprofit',
-    problem:
-      "Paid campaigns were generating leads but at unsustainable cost. Audience targeting was too broad and creative wasn't tested against meaningful segments.",
-    action:
-      'Managed Search, Display, and Meta Ads — ran structured A/B tests on copy and creative, refined audience targeting, and built a reporting dashboard to track CPA weekly.',
-    metric: '20% CPA reduction',
-    outcome:
-      'Reduced CPA by 20%. Improved organic acquisition by 25% through SEO-optimised content, and drove a 30% increase in lead conversions overall.',
+    company: 'Regal Immigration',
+    location: 'Surrey, BC',
+    period: 'Dec 2021 – Mar 2022',
+    type: 'Full-Time',
+    role: 'Marketing Coordinator',
+    stats: [],
+    bullets: [
+      'Developed and executed digital communication strategies enhancing brand awareness and client acquisition.',
+      'Conducted SEO audits identifying UX barriers and recommended site performance improvements.',
+      'Produced social content, digital materials, and leadership reports supporting cross-functional collaboration.',
+    ],
+    tools: ['SEO', 'Content Strategy', 'Digital Comms', 'Analytics'],
+  },
+  {
+    company: 'Consultants Factory',
+    location: 'Bangalore, India',
+    period: 'Jan 2020 – Dec 2020',
+    type: 'Dual Role',
+    role: 'Business Manager → Marketing Intern',
+    stats: [],
+    bullets: [
+      'Led product marketing and communication initiatives — CRM integration, campaign management, and stakeholder reporting for a cybersecurity IT training company.',
+      'Created digital content across video, stills, and carousels to enhance brand storytelling.',
+      'Ran outreach and lead generation through targeted messaging, and advised executives on KPI-driven strategy adjustments.',
+    ],
+    tools: ['CRM', 'Graphic Design', 'Google Ads', 'LinkedIn Ads', 'Copywriting', 'Blog Writing'],
   },
 ];
