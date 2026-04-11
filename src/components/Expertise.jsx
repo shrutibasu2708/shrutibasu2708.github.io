@@ -118,7 +118,6 @@ function DetailPanel({ skill }) {
                 </li>
               ))}
             </ul>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-ink-muted)', margin: '1.5rem 0 0', opacity: 0.55 }}>Hover any node to explore</p>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -158,9 +157,38 @@ export default function Expertise() {
   const headerRef  = useRef(null);
   const problemRef = useRef(null);
   const dialRef    = useRef(null);
+  const thinkRef   = useRef(null);
   const headerInView  = useInView(headerRef,  { once: true, margin: '-60px' });
   const problemInView = useInView(problemRef, { once: true, margin: '-80px' });
   const dialInView    = useInView(dialRef,    { once: true, margin: '-80px' });
+  const thinkInView   = useInView(thinkRef,   { once: true, margin: '-80px' });
+
+  const steps = [
+    {
+      number: '01',
+      title: 'Diagnose',
+      subtitle: 'Find what\'s actually broken',
+      body: 'I start in your funnel data, not in a slide deck. I map your customer journey, identify drop-off points, and audit your channels to understand where the real problem is — before touching a single campaign.',
+    },
+    {
+      number: '02',
+      title: 'Hypothesize',
+      subtitle: 'Build a testable thesis',
+      body: 'Growth assumptions without evidence are expensive guesses. I form a specific, testable hypothesis about what\'s limiting performance — then design a low-cost experiment to validate it before scaling spend.',
+    },
+    {
+      number: '03',
+      title: 'Execute',
+      subtitle: 'Ship fast, measure everything',
+      body: 'Campaigns go live with tracking in place before launch — not after. I use GA4, CRM dashboards, and platform analytics to track performance in real time, not in a Monday morning report.',
+    },
+    {
+      number: '04',
+      title: 'Scale',
+      subtitle: 'Double down on what works',
+      body: 'Once a tactic is validated, I build a repeatable system around it. Budget moves toward what\'s proven. Underperformers get cut. The result: compounding growth, not constant reinvention.',
+    },
+  ];
 
   return (
     <section id="expertise" style={{ background: 'var(--color-bg)', paddingTop: 'clamp(3rem, 6vw, 5rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
@@ -174,13 +202,46 @@ export default function Expertise() {
         <div ref={problemRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)' }}>
           {problems.map((p, i) => <ProblemCard key={p.number} {...p} index={i} visible={problemInView} />)}
         </div>
-        <div ref={dialRef} className="hidden md:grid" style={{ gridTemplateColumns: '3fr 2fr', gap: '3rem', alignItems: 'center' }}>
-          <RadialDial active={activeSkill} setActive={setActiveSkill} visible={dialInView} />
-          <DetailPanel skill={skills[activeSkill]} />
+        <div ref={dialRef} style={{ marginTop: 'clamp(2.5rem, 5vw, 4rem)' }}>
+          <motion.p className="eyebrow" initial={{ opacity: 0, x: -16 }} animate={dialInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.45 }}>What I Specialise In</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} animate={dialInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 clamp(1.25rem, 2.5vw, 2rem)' }}>
+            Deep in the craft.<br /><em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>Broad across the funnel.</em>
+          </motion.h2>
+          <div className="hidden md:grid" style={{ gridTemplateColumns: '3fr 2fr', gap: '3rem', alignItems: 'center' }}>
+            <RadialDial active={activeSkill} setActive={setActiveSkill} visible={dialInView} />
+            <DetailPanel skill={skills[activeSkill]} />
+          </div>
+          <div className="md:hidden" style={{ borderTop: '1px solid var(--color-border)' }}>
+            {skills.map(skill => <MobileSkill key={skill.number} {...skill} />)}
+          </div>
         </div>
-        <div className="md:hidden" style={{ borderTop: '1px solid var(--color-border)' }}>
-          {skills.map(skill => <MobileSkill key={skill.number} {...skill} />)}
+
+        {/* ── How I Think ── */}
+        <div ref={thinkRef}>
+          <motion.p className="eyebrow" initial={{ opacity: 0, x: -16 }} animate={thinkInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.45 }}>How I Think</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} animate={thinkInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em', color: 'var(--color-ink)', margin: '0 0 clamp(2rem, 4vw, 3.5rem)' }}>
+            My approach to growth.<br /><em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>Not gut-feel. Evidence.</em>
+          </motion.h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)' }}>
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 24 }}
+                animate={thinkInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', background: 'var(--color-bg)' }}
+              >
+                <span style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '2.2rem', fontWeight: 700, lineHeight: 1, color: 'rgba(17,16,16,0.08)' }}>{step.number}</span>
+                <div>
+                  <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--color-ink)', margin: '0 0 0.2rem' }}>{step.title}</p>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', margin: 0 }}>{step.subtitle}</p>
+                </div>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', lineHeight: 1.75, color: 'var(--color-ink-muted)', margin: 0 }}>{step.body}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );
