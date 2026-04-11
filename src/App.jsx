@@ -24,12 +24,19 @@ function HomePage() {
       });
     } else if (location.hash) {
       const id = location.hash.slice(1);
-      // Small delay to let sections mount before scrolling
-      const t = setTimeout(() => {
+      const doScroll = () => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return () => clearTimeout(t);
+      };
+      // Wait for all resources (images) to finish loading so layout is stable,
+      // then scroll. A 2MB hero image can shift sections significantly.
+      if (document.readyState === 'complete') {
+        const t = setTimeout(doScroll, 50);
+        return () => clearTimeout(t);
+      } else {
+        window.addEventListener('load', doScroll, { once: true });
+        return () => window.removeEventListener('load', doScroll);
+      }
     }
   }, [location.state, location.hash]);
 
