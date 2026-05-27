@@ -74,7 +74,7 @@ export const work = [
     type: 'Full-Time',
     role: 'Marketing Specialist',
     description:
-      'VINN Automotive is a subscription-based car dealership — a relatively new model in the Canadian market. I managed the full performance marketing stack: paid acquisition, lifecycle email, CRM, and analytics tooling. The challenge was funnel visibility — the team didn\'t have a clear picture of where users were dropping off between first touch and purchase. I integrated Close CRM with GA4, Tag Manager, and Hotjar to build a cohesive tracking layer. With drop-off data in hand, I redesigned the email retention sequences and ran paid campaigns with continuous A/B testing, lifting retention and conversion by 30%.',
+      'VINN Automotive is a platform to buy and sell used cars from individuals and dealerships. I managed the full performance marketing stack: paid acquisition, lifecycle email, and analytics tooling. I integrated Close CRM with GA4, Tag Manager, and Hotjar to build a cohesive tracking layer. With drop-off data in hand, I redesigned the email retention sequences and ran paid campaigns with continuous A/B testing, lifting retention and conversion by 30%.',
     stats: [
       { value: '↑30%', label: 'Retention & Conversion' },
     ],
